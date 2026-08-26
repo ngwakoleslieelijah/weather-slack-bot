@@ -62,6 +62,27 @@ def slack_command():
     )
 
 
+@app.get("/")
+def index():
+    return """
+    <html>
+        <head><title>Jumo Weather Slack Bot</title></head>
+        <body style="font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; padding: 20px;">
+            <h1>🌤️ Jumo Weather Slack Bot</h1>
+            <p>This service powers the <code>/jumo_weather [city]</code> Slack slash command.</p>
+            <h2>Available Endpoints:</h2>
+            <ul>
+                <li><strong>GET /health</strong> - Health check endpoint</li>
+                <li><strong>POST /slack/commands</strong> - Slack slash command handler</li>
+            </ul>
+            <h2>Usage in Slack:</h2>
+            <pre>/jumo_weather London</pre>
+            <p>Returns the current temperature in the specified city.</p>
+        </body>
+    </html>
+    """
+
+
 @app.get("/health")
 def health_check():
     return {"status": "ok"}
