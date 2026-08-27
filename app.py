@@ -65,20 +65,47 @@ def slack_command():
 @app.get("/")
 def index():
     return """
-    <html>
-        <head><title>Jumo Weather Slack Bot</title></head>
-        <body style="font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; padding: 20px;">
-            <h1>🌤️ Jumo Weather Slack Bot</h1>
-            <p>This service powers the <code>/jumo_weather [city]</code> Slack slash command.</p>
-            <h2>Available Endpoints:</h2>
-            <ul>
-                <li><strong>GET /health</strong> - Health check endpoint</li>
-                <li><strong>POST /slack/commands</strong> - Slack slash command handler</li>
-            </ul>
-            <h2>Usage in Slack:</h2>
-            <pre>/jumo_weather London</pre>
-            <p>Returns the current temperature in the specified city.</p>
-        </body>
+    <!doctype html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Jumo Weather Slack Bot</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+              rel="stylesheet">
+    </head>
+    <body class="bg-light">
+        <main class="container py-5">
+            <div class="card shadow-sm mx-auto" style="max-width: 720px;">
+                <div class="card-body p-4">
+                    <h1 class="card-title text-primary">🌤️ Jumo Weather Slack Bot</h1>
+                    <p class="lead">
+                        This service powers the
+                        <code>/jumo_weather [city]</code> Slack slash command.
+                    </p>
+
+                    <h2 class="h4 mt-4">Available Endpoints</h2>
+                    <ul class="list-group mb-4">
+                        <li class="list-group-item">
+                            <strong>GET /health</strong> — Health check endpoint
+                        </li>
+                        <li class="list-group-item">
+                            <strong>POST /slack/commands</strong> — Slack command handler
+                        </li>
+                    </ul>
+
+                    <div class="alert alert-info">
+                        <strong>Usage:</strong>
+                        <code>/jumo_weather London</code>
+                    </div>
+
+                    <p class="text-muted mb-0">
+                        Returns the current temperature for the specified city.
+                    </p>
+                </div>
+            </div>
+        </main>
+    </body>
     </html>
     """
 
