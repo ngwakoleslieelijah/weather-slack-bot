@@ -3,12 +3,19 @@ import hmac
 import os
 import time
 from urllib.parse import parse_qs
+from typing import TypedDict, cast
 
 from flask import Flask, jsonify, request
 
-from weather import WeatherError, get_current_weather
+from weather import WeatherError, get_current_weather  # type: ignore[reportUnknownVariableType]
 
 app = Flask(__name__)
+
+
+class CurrentWeather(TypedDict):
+    city: str
+    temperature: float
+    temperature_f: float
 
 
 def verify_slack_signature(raw_body: bytes, timestamp: str, signature: str) -> bool:
@@ -52,7 +59,7 @@ def slack_command():
         return slack_response("Usage: /jumo_weather <city>", 400)
 
     try:
-        weather = get_current_weather(city)
+        weather = cast(CurrentWeather, get_current_weather(city))
     except WeatherError as error:
         return slack_response(str(error), 400)
 
@@ -116,7 +123,7 @@ def health_check():
 
 
 @app.errorhandler(WeatherError)
-def handle_weather_error(error):
+def handle_weather_error(error: WeatherError):
     return slack_response(str(error), 400)
 
 
